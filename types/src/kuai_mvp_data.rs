@@ -61,4 +61,14 @@ impl KuaiMvpView {
 
         Ok(KuaiMvpData::new_builder().addresses(objs).build().as_bytes())
     }
+
+    pub fn verify(&self) {
+        if self.addresses.len() == 0 {
+            panic!("address cannot be empty");
+        }
+
+        if self.addresses.get(0).unwrap().key != "ckb" {
+            panic!("the first of the addresses must be ckb");
+        }
+    }
 }

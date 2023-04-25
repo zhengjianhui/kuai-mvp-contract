@@ -34,11 +34,7 @@ pub fn main() -> Result<(), Error> {
     let view = KuaiMvpView::new(data.as_slice()).unwrap();
     debug!("data is {:?}", view);
 
-    // let json_str = str::from_utf8(&data).map_err(|_| Error::DataParseError)?;
-    // debug!("data str is {:?}", json_str);
-    //
-    // let parsed = parse(json_str).unwrap();
-    // debug!("data str is {:?}", parsed);
+    view.verify();
 
     // return an error if args is invalid
     if args.is_empty() {
