@@ -16,6 +16,7 @@ use ckb_std::{
 
 use crate::error::Error;
 use core::str;
+use serde::{Deserialize, Serialize};
 
 extern crate alloc;
 use alloc::string::{String, ToString};
@@ -30,11 +31,15 @@ pub fn main() -> Result<(), Error> {
 
     let data = load_cell_data(0, Source::Output).map_err(|_| Error::DataParseError)?;
     debug!("data is {:?}", data.clone());
+    //
+    // let view = KuaiMvpView::new(data.as_slice()).unwrap();
+    // debug!("data is {:?}", view);
+    //
+    // view.verify();
 
-    let view = KuaiMvpView::new(data.as_slice()).unwrap();
-    debug!("data is {:?}", view);
-
-    view.verify();
+    let jsonStr = str::from_utf8(data.as_slice()).map_err(|_| Error::DataParseError)?;
+    let json = KuaiMvpView::as_json_str(jsonStr);
+    debug!("data is {:?}", json);
 
     // return an error if args is invalid
     if args.is_empty() {

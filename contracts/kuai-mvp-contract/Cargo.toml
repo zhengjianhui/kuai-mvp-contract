@@ -7,8 +7,7 @@ edition = "2021"
 
 [dependencies]
 ckb-std = "0.10.0"
-#json = "0.12.4"
 types = { path = "../../types", default-features = false }
 no-std-compat = { version = "0.4.1", features = [ "alloc" ] }
-
+serde = { version = "1.0", default-features = false, features = ["derive", "alloc"] }
 

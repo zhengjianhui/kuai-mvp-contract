@@ -734,6 +734,7 @@ version = "0.1.0"
 dependencies = [
  "ckb-std",
  "no-std-compat",
+ "serde",
  "types",
 ]
 
@@ -1178,6 +1179,7 @@ name = "tests"
 version = "0.1.0"
 dependencies = [
  "ckb-testtool",
+ "serde",
  "serde_json",
  "types",
 ]
@@ -1218,6 +1220,8 @@ dependencies = [
  "cfg-if",
  "molecule",
  "no-std-compat",
+ "serde",
+ "serde_json",
 ]
 
 [[package]]

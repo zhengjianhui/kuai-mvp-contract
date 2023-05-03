@@ -1,3 +1,8 @@
+#![cfg_attr(not(feature = "std"), no_std)]
+#[cfg(not(feature = "std"))]
+
+extern crate no_std_compat as std;
+
 use crate::generated::basic::{MString};
 use crate::generated::mvp_data::{KuaiMvpData, KuaiMvpDataReader, Obj, Objs};
 use molecule::{
@@ -7,18 +12,20 @@ use molecule::{
 };
 use molecule::prelude::Reader;
 
+use serde_json;
+use serde::{Deserialize, Serialize};
+
 extern crate alloc;
-#[cfg(not(feature = "std"))]
 use alloc::string::String;
 use alloc::vec::Vec;
 
-#[derive(Clone, Debug)]
+#[derive(Clone, Debug, Deserialize, Serialize)]
 pub struct Data {
     pub key: String,
     pub value: String,
 }
 
-#[derive(Clone, Debug)]
+#[derive(Clone, Debug, Deserialize, Serialize)]
 pub struct KuaiMvpView {
     pub addresses: Vec<Data>,
 }
@@ -60,6 +67,11 @@ impl KuaiMvpView {
         let objs = objs_build.build();
 
         Ok(KuaiMvpData::new_builder().addresses(objs).build().as_bytes())
+    }
+
+    pub fn as_json_str(data: &str) -> KuaiMvpView {
+        let view: KuaiMvpView = serde_json::from_str(data).unwrap();
+        view
     }
 
     pub fn verify(&self) {
